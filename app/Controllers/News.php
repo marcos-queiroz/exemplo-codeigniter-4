@@ -51,14 +51,51 @@ class News extends Controller
         }
         else
         {
-            $model->save([
-                'title' => $this->request->getVar('title'),
-                'slug'  => url_title($this->request->getVar('title')),
-                'body'  => $this->request->getVar('body'),
-            ]);
+            if($this->request->getVar('id'))
+            {
+                $model->update($this->request->getVar('id'), [
+                    'title' => $this->request->getVar('title'),
+                    'slug'  => url_title($this->request->getVar('title')),
+                    'body'  => $this->request->getVar('body'),
+                ]);
+            }
+            else{
+                $model->save([
+                    'title' => $this->request->getVar('title'),
+                    'slug'  => url_title($this->request->getVar('title')),
+                    'body'  => $this->request->getVar('body'),
+                ]);
+            }
 
             echo view('news/success');
         }
         echo view('templates/footer');
+    }
+
+    public function edit($slug = null)
+    {
+        $model = new NewsModel();
+        
+        $data['news'] = $model->getNews($slug);
+
+        // $this->pre($data['news'] ); exit;
+        
+        if (empty($data['news']))
+        {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the news item: '. $slug);
+        }
+        
+        $data['title'] = "Update a item";
+        
+        echo view('templates/header', $data);
+        echo view('news/create', $data);
+        echo view('templates/footer');
+    }
+
+    private function pre($array)
+    {
+        echo "<pre>";
+        print_r($array);
+        echo "</pre>";
     }
 }
