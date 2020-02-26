@@ -92,6 +92,22 @@ class News extends Controller
         echo view('templates/footer');
     }
 
+    public function delet($slug = null)
+    {
+        $model = new NewsModel();
+        
+        $new = $model->getNews($slug);
+        
+        if (empty($new))
+        {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the news item: '. $slug);
+        }
+        
+        if($model->delete($new['id'])){
+            return redirect()->route('news');
+        }
+    }
+
     private function pre($array)
     {
         echo "<pre>";

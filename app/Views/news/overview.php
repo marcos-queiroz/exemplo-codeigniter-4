@@ -11,8 +11,9 @@
                         <p class="card-text"><?= $news_item['body'] ?></p>                    
                     </div>
                     <div class="card-footer">
-                        <a href="<?= base_url('/news/'.$news_item['slug']) ?>" class="btn btn-primary">View article</a>
-                        <a href="<?= base_url('/edit-news/'.$news_item['slug']) ?>" class="btn btn-warning">Edit article</a>
+                        <a href="<?= base_url('/news/'.$news_item['slug']) ?>" class="btn btn-primary">View</a>
+                        <a href="<?= base_url('/edit-news/'.$news_item['slug']) ?>" class="btn btn-warning">Edit</a>
+                        <a href="<?= base_url('/delet-news/'.$news_item['slug']) ?>" class="btn btn-danger">Delet</a>
                     </div>
                 </div>
             </div>
