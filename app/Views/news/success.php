@@ -1,0 +1,1 @@
+<strong>News item created successfully.</strong>
