@@ -37,35 +37,35 @@ estrutura são expostos.
 
 Use o script para criar a base de dados que é utilizada no projeto.
 
-`CREATE TABLE news (
+```sql
+CREATE TABLE news (
         id int(11) NOT NULL AUTO_INCREMENT,
         title varchar(128) NOT NULL,
         slug varchar(128) NOT NULL,
         body text NOT NULL,
         PRIMARY KEY (id),
         KEY slug (slug)
-);`
+);
+```
 
 Insira algumas notícias para demonstrar o funcionamento.
 
-`
+```sql
 INSERT INTO news VALUES
 (1,'Elvis sighted','elvis-sighted','Elvis was sighted at the Podunk internet cafe. It looked like he was writing a CodeIgniter app.'),
 (2,'Say it isn\'t so!','say-it-isnt-so','Scientists conclude that some programmers have a sense of humor.'),
 (3,'Caffeination, Yes!','caffeination-yes','World\'s largest coffee shop open onsite nested coffee shop for staff only.');
-`
+```
 
 No arquivo `.env` descomente os campos e insira as informações de conexão do seu Banco de dados
 
-`database.default.hostname = localhost`
-
-`database.default.database = ci4tutorial`
-
-`database.default.username = root`
-
-`database.default.password = `
-
-`database.default.DBDriver = MySQLi`
+```
+database.default.hostname = localhost
+database.default.database = ci4tutorial
+database.default.username = root
+database.default.password = 
+database.default.DBDriver = MySQLi
+```
 
 ## Mode de debug
 
