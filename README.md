@@ -1,66 +1,77 @@
 # CodeIgniter 4 Application Starter
 
-## What is CodeIgniter?
+## O que é CodeIgniter?
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible, and secure. 
-More information can be found at the [official site](http://codeigniter.com).
+O CodeIgniter é um Frameword PHP completo, leve, rápida, flexível e seguro. 
+Mais informações podem ser encontradas no [site oficial](http://codeigniter.com).
 
-This repository holds a composer-installable app starter.
-It has been built from the 
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## Testando a Aplicação
 
-**This is pre-release code and should not be used in production sites.**
+Baixe o projeto ou clone em um diretório de sua preferência.
 
-More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
+Após o termiar de baixar, execute o comando `composer update` no diretorio criado para atualizar os repositorios do projeto.
 
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/). 
+Você pode utilizar o servidor de testes do próprio CodeIgniter utilizando o comando `php spark serve`, mas se preferir, pode ser usado algum servidor Web, como o Apache, ISS etc. 
 
-## Installation & updates
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+**Lembrando que o host deve ser apostado para o diretório '/public' da aplicação**
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+Mais detalhes na [documentação oficial](https://codeigniter4.github.io/userguide/).
+
 
 ## Setup
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+Copie o arquivo `env` para `.env` e personalizar seu aplicativo, especificamente a baseURL
+e quaisquer configurações do banco de dados.
 
 ## Important Change with index.php
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+O `index.php` não está mais na raiz do projeto! Foi movido para dentro da pasta * public *,
+para melhor segurança e separação de componentes.
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+Isso significa que você deve configurar seu servidor da Web para "apontar" para a pasta * public * do seu projeto e
+não para a raiz do projeto. Uma prática melhor seria configurar um host virtual para apontar para lá. Uma prática ruim seria apontar o servidor da Web para a raiz do projeto e esperar inserir * public /...*, como o restante de sua lógica e
+estrutura são expostos.
 
-**Please** read the user guide for a better explanation of how CI4 works!
-The user guide updating and deployment is a bit awkward at the moment, but we are working on it!
+## Base de Dados
 
-## Repository Management
+Use o script para criar a base de dados que é utilizada no projeto.
 
-We use Github issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+`CREATE TABLE news (
+        id int(11) NOT NULL AUTO_INCREMENT,
+        title varchar(128) NOT NULL,
+        slug varchar(128) NOT NULL,
+        body text NOT NULL,
+        PRIMARY KEY (id),
+        KEY slug (slug)
+);`
 
-This repository is a "distribution" one, built by our release preparation script. 
-Problems with it can be raised on our forum, or as issues in the main repository.
+Insira algumas notícias para demonstrar o funcionamento.
 
-## Server Requirements
+`
+INSERT INTO news VALUES
+(1,'Elvis sighted','elvis-sighted','Elvis was sighted at the Podunk internet cafe. It looked like he was writing a CodeIgniter app.'),
+(2,'Say it isn\'t so!','say-it-isnt-so','Scientists conclude that some programmers have a sense of humor.'),
+(3,'Caffeination, Yes!','caffeination-yes','World\'s largest coffee shop open onsite nested coffee shop for staff only.');
+`
 
-PHP version 7.2 or higher is required, with the following extensions installed: 
+No arquivo `.env` descomente os campos e insira as informações de conexão do seu Banco de dados
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+`database.default.hostname = localhost`
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+`database.default.database = ci4tutorial`
 
-- json (enabled by default - don't turn it off)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
-- xml (enabled by default - don't turn it off)
+`database.default.username = root`
+
+`database.default.password = `
+
+`database.default.DBDriver = MySQLi`
+
+## Mode de debug
+
+Você também pode ativar o mode de depuração de erros no mesmo arquivo `.env`, basta alterar a linha `# CI_ENVIRONMENT = production` para `CI_ENVIRONMENT = development`
+
+
+## Teste
+
+Agora se tudo estiver correto, basta acessar a URL: http://localhost:8080/ e será exibido um belo `Hello Word!`, na página temos uma NavBar com os links disponíveis.
