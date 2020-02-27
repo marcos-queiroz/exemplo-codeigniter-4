@@ -3,7 +3,7 @@
   <div class="card-body">
     <h2 class="card-title"><?= esc($title); ?></h2>
 
-    <form method="post" action="<?= base_url('news/edit-news') ?>">
+    <form method="post" action="<?= base_url('news/create') ?>">
         <div class="form-group">
             <label for="title">Title</label>
             <input type="text" class="form-control" name="title" id="title">

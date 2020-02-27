@@ -12,7 +12,7 @@
                     </div>
                     <div class="card-footer">
                         <a href="<?= base_url('/news/'.$news_item['slug']) ?>" class="btn btn-primary">View</a>
-                        <a href="<?= base_url('/edit-news/'.$news_item['slug']) ?>" class="btn btn-warning">Edit</a>
+                        <a href="<?= base_url('/news/edit/'.$news_item['slug']) ?>" class="btn btn-warning">Edit</a>
                         <a href="<?= base_url('/delet-news/'.$news_item['slug']) ?>" class="btn btn-danger">Delet</a>
                     </div>
                 </div>

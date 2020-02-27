@@ -1,9 +1,15 @@
-<?php namespace App\Controllers;
+<?php 
+
+namespace App\Controllers;
 use App\Models\NewsModel;
 use CodeIgniter\Controller;
 
 class News extends Controller
 {
+    function __construct() {
+        helper(['util', 'form']);
+    }
+
     public function index()
     {
         $model = new NewsModel();
@@ -38,8 +44,6 @@ class News extends Controller
     
     public function create()
     {
-        helper('form');
-        helper('util');
         $model = new NewsModel();
         
         echo view('templates/header', ['title' => 'Create a news item']);
@@ -65,7 +69,6 @@ class News extends Controller
 
     public function edit($slug = null)
     {
-        helper('form');
         helper('util');
         $model = new NewsModel();
         
