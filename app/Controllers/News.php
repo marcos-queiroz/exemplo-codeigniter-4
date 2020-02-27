@@ -39,6 +39,7 @@ class News extends Controller
     public function create()
     {
         helper('form');
+        helper('util');
         $model = new NewsModel();
         
         echo view('templates/header', ['title' => 'Create a news item']);
@@ -51,21 +52,11 @@ class News extends Controller
         }
         else
         {
-            if($this->request->getVar('id'))
-            {
-                $model->update($this->request->getVar('id'), [
-                    'title' => $this->request->getVar('title'),
-                    'slug'  => url_title($this->request->getVar('title')),
-                    'body'  => $this->request->getVar('body'),
-                ]);
-            }
-            else{
-                $model->save([
-                    'title' => $this->request->getVar('title'),
-                    'slug'  => url_title($this->request->getVar('title')),
-                    'body'  => $this->request->getVar('body'),
-                ]);
-            }
+            $model->save([
+                'title' => $this->request->getVar('title'),
+                'slug'  => url_slug($this->request->getVar('title')),
+                'body'  => $this->request->getVar('body'),
+            ]);
 
             echo view('news/success');
         }
@@ -74,21 +65,34 @@ class News extends Controller
 
     public function edit($slug = null)
     {
+        helper('form');
+        helper('util');
         $model = new NewsModel();
         
-        $data['news'] = $model->getNews($slug);
-
-        // $this->pre($data['news'] ); exit;
-        
-        if (empty($data['news']))
+        echo view('templates/header', ['title' => 'Update a news item']);
+        if (!$this->validate([
+                'title' => 'required|min_length[3]|max_length[255]',
+                'body'  => 'required'
+            ]))
         {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the news item: '. $slug);
+            $data['news'] = $model->getNews($slug);
+            if (empty($data['news']))
+            {
+                throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the news item: '. $slug);
+            }
+
+            echo view('news/update', $data);
         }
-        
-        $data['title'] = "Update a item";
-        
-        echo view('templates/header', $data);
-        echo view('news/create', $data);
+        else
+        {
+            $model->update($this->request->getVar('id'), [
+                'title' => $this->request->getVar('title'),
+                'slug'  => url_slug($this->request->getVar('title')),
+                'body'  => $this->request->getVar('body'),
+            ]);
+
+            echo view('news/success');
+        }
         echo view('templates/footer');
     }
 
